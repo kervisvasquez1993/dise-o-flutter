@@ -112,3 +112,49 @@ class _HeaderTriangularPainter extends CustomPainter {
     return true;
   }
 }
+
+class Header3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      /* color: Color(0xff33FFDE), */
+      child: CustomPaint(
+        painter: _Header3Painter(),
+      ),
+    );
+  }
+}
+
+class _Header3Painter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint();
+
+    /* propiedades */
+
+    paint.color = Color(0xff33FFDE);
+    paint.style = PaintingStyle.fill;
+    paint.strokeWidth = 20;
+    final path = new Path();
+
+    /* ejemplo 1 */
+    /* dibujar con el path y el paint */
+    /*   path.moveTo(size.width, 0);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, 0); */
+
+    path.lineTo(0, size.height * 0.30);
+    path.lineTo(size.width * 0.50, size.height * 0.37);
+    path.lineTo(size.width, size.height * 0.30);
+    path.lineTo(size.width, 0);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
