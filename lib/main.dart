@@ -1,3 +1,4 @@
+import 'package:appredvital/src/pages/animaciones_pages.dart';
 import 'package:appredvital/src/pages/header_page.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Diseño app',
-      home: Scaffold(body: HeaderPage()),
+      home: Scaffold(body: AnimacionesPage()),
     );
   }
 }
