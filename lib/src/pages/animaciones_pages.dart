@@ -21,6 +21,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
     with SingleTickerProviderStateMixin {
   AnimationController controller; /* ejemplo de la barra de youtube    */
   Animation<double> rotation;
+  Animation<double> opacidad;
 
   /* inicializar  */
 
@@ -33,7 +34,11 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
         vsync: this, duration: Duration(milliseconds: 4000));
 
     rotation = Tween(begin: 0.0, end: 2 * Math.pi)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.easeInBack));
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+
+    /* opcidad */
+
+    opacidad = Tween(begin: 0.1, end: 1.0).animate(controller);
 
     /* add listener */
     controller.addListener(() {
@@ -61,10 +66,15 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
     controller.forward();
     return AnimatedBuilder(
       animation: controller,
-      /* child: _Rectangulo(), */
-      builder: (BuildContext context, Widget child) {
-        print(rotation.value);
-        return Transform.rotate(angle: rotation.value, child: _Rectangulo());
+      child: _Rectangulo(),
+      builder: (BuildContext context, Widget childRectangulo) {
+        /* print(rotation.value); */
+        return Transform.rotate(
+            angle: rotation.value,
+            child: Opacity(
+              opacity: opacidad.value,
+              child: childRectangulo,
+            ));
       },
     );
   }
