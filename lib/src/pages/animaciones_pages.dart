@@ -22,6 +22,8 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
   AnimationController controller; /* ejemplo de la barra de youtube    */
   Animation<double> rotation;
   Animation<double> opacidad;
+  Animation<double> moverDerecha;
+  Animation<double> agrandar;
 
   /* inicializar  */
 
@@ -38,7 +40,13 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
 
     /* opcidad */
 
-    opacidad = Tween(begin: 0.1, end: 1.0).animate(controller);
+    opacidad = Tween(begin: 0.1, end: 1.0)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0, 0.25)));
+
+    moverDerecha = Tween(begin: 0.0, end: 200.0)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+    agrandar = Tween(begin: 0.0, end: 200.0)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
     /* add listener */
     controller.addListener(() {
@@ -69,12 +77,18 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
       child: _Rectangulo(),
       builder: (BuildContext context, Widget childRectangulo) {
         /* print(rotation.value); */
-        return Transform.rotate(
-            angle: rotation.value,
-            child: Opacity(
-              opacity: opacidad.value,
-              child: childRectangulo,
-            ));
+        return Transform.translate(
+          offset: Offset(moverDerecha.value, 0),
+          child: Transform.rotate(
+              angle: rotation.value,
+              child: Opacity(
+                opacity: opacidad.value,
+                child: Transform.scale(
+                  scale: agrandar.value,
+                  child: childRectangulo,
+                ),
+              )),
+        );
       },
     );
   }
