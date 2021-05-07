@@ -1,5 +1,6 @@
 import 'package:appredvital/src/pages/animaciones_pages.dart';
-import 'package:appredvital/src/pages/circular_progress_page.dart';
+import 'package:appredvital/src/labs/circular_progress_page.dart';
+import 'package:appredvital/src/pages/graficas_circulares_page.dart';
 import 'package:appredvital/src/pages/header_page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Diseño app',
-      home: Scaffold(body: CircularProgressPage()),
+      home: Scaffold(body: GraficaCircularPage()),
     );
   }
 }
