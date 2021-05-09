@@ -4,8 +4,18 @@ import 'package:flutter/material.dart';
 
 class RadialProgress extends StatefulWidget {
   final porcentaje;
+  final Color colorPrimario;
+  final Color colorArco;
+  double grosorArco;
+  double grosorProgress;
 
-  RadialProgress({this.porcentaje});
+  RadialProgress({
+    @required this.porcentaje,
+    this.colorPrimario = Colors.blue,
+    this.colorArco = Colors.grey,
+    this.grosorArco = 5,
+    this.grosorProgress,
+  });
 
   @override
   _RadialProgressState createState() => _RadialProgressState();
@@ -22,7 +32,7 @@ class _RadialProgressState extends State<RadialProgress>
     // TODO: implement initState
     porcentajeAnterior = widget.porcentaje;
     controller = new AnimationController(
-        vsync: this, duration: Duration(milliseconds: 2000));
+        vsync: this, duration: Duration(milliseconds: 200));
     super.initState();
   }
 
@@ -48,8 +58,14 @@ class _RadialProgressState extends State<RadialProgress>
             width: double.infinity,
             height: double.infinity,
             child: CustomPaint(
-              painter: _MiRadialProgress((widget.porcentaje - diferencia) +
-                  (diferencia * controller.value)),
+              painter: _MiRadialProgress(
+                (widget.porcentaje - diferencia) +
+                    (diferencia * controller.value),
+                widget.colorPrimario,
+                widget.colorArco,
+                widget.grosorArco,
+                widget.grosorProgress,
+              ),
             ),
           );
         });
@@ -58,13 +74,23 @@ class _RadialProgressState extends State<RadialProgress>
 
 class _MiRadialProgress extends CustomPainter {
   final porcentaje;
-  _MiRadialProgress(this.porcentaje);
+  final Color colorPrimario;
+  final Color colorArco;
+  double grosorArco;
+  double grosorProgress;
+  _MiRadialProgress(
+    this.porcentaje,
+    this.colorPrimario,
+    this.colorArco,
+    this.grosorArco,
+    this.grosorProgress,
+  );
   @override
   void paint(Canvas canvas, Size size) {
     //circular completado
     final paint = new Paint()
-      ..strokeWidth = 10
-      ..color = Colors.grey
+      ..strokeWidth = grosorArco
+      ..color = colorArco
       ..style = PaintingStyle.stroke;
     final center = new Offset(size.width * 0.5, size.height * 0.5);
     final radio = min(size.width * 0.5, size.height * 0.5);
@@ -72,8 +98,8 @@ class _MiRadialProgress extends CustomPainter {
 
     //arco
     final paintArco = new Paint()
-      ..strokeWidth = 10
-      ..color = Colors.pink
+      ..strokeWidth = grosorProgress
+      ..color = colorPrimario
       ..style = PaintingStyle.stroke;
 
     //parte que se debe llenar

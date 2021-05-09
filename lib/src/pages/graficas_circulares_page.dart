@@ -23,15 +23,68 @@ class _GraficaCircularPageState extends State<GraficaCircularPage> {
           });
         },
       ),
-      body: Center(
-        child: Container(
-          width: 300,
-          height: 300,
-          child: RadialProgress(
-            porcentaje: porcentaje,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              CustomRadialProgress(
+                porcentaje: porcentaje,
+                colorPrimario: Colors.grey,
+                grosoProgress: 7,
+                grosorArco: 5,
+              ),
+              CustomRadialProgress(
+                porcentaje: porcentaje,
+                colorPrimario: Colors.purple,
+              ),
+            ],
           ),
-        ),
+          Row(
+            children: <Widget>[
+              CustomRadialProgress(
+                porcentaje: porcentaje,
+                colorPrimario: Colors.yellow,
+              ),
+              CustomRadialProgress(
+                porcentaje: porcentaje,
+                colorPrimario: Colors.green,
+              ),
+            ],
+          ),
+        ],
       ), // child: Text('$porcentaje %', style: TextStyle(fontSize: 50.0))),
+    );
+  }
+}
+
+class CustomRadialProgress extends StatelessWidget {
+  final Color colorPrimario;
+  final colorArco;
+  final double grosorArco;
+  final double grosoProgress;
+  const CustomRadialProgress({
+    @required this.porcentaje,
+    this.colorPrimario = Colors.blue,
+    this.colorArco = Colors.red,
+    this.grosoProgress = 10,
+    this.grosorArco = 10,
+  });
+
+  final double porcentaje;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      child: RadialProgress(
+        porcentaje: porcentaje,
+        colorPrimario: colorPrimario,
+        colorArco: colorArco,
+        grosorArco: grosorArco,
+        grosorProgress: grosoProgress,
+      ),
     );
   }
 }
