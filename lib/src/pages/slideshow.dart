@@ -1,18 +1,23 @@
+import 'package:appredvital/src/models/slider_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class SlideShowPage extends StatelessWidget {
   const SlideShowPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Expanded(child: _Slider()),
-            _Dots(),
-          ],
+    return ChangeNotifierProvider(
+      create: (_) => SliderModel(),
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              Expanded(child: _Slider()),
+              _Dots(),
+            ],
+          ),
         ),
       ),
     );
@@ -28,9 +33,9 @@ class _Dots extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _Dot(),
-          _Dot(),
-          _Dot(),
+          _Dot(0),
+          _Dot(1),
+          _Dot(2),
         ],
       ),
     );
@@ -38,6 +43,8 @@ class _Dots extends StatelessWidget {
 }
 
 class _Dot extends StatelessWidget {
+  final int index;
+  _Dot(this.index);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,11 +62,39 @@ class _Dot extends StatelessWidget {
 }
 
 // SvgPicture.asset('assets/svg/slide-1.svg')
-class _Slider extends StatelessWidget {
+class _Slider extends StatefulWidget {
+  @override
+  __SliderState createState() => __SliderState();
+}
+
+class __SliderState extends State<_Slider> {
+  final pageViewController = new PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    pageViewController.addListener(() {
+      // print('Pagina actual ${pageViewController.page}');
+
+      // actualizar la instancia del model
+
+      Provider.of<SliderModel>(context, listen: false).currentPage =
+          pageViewController.page;
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    pageViewController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: PageView(
+        controller: pageViewController,
         children: <Widget>[
           _Slide('assets/svg/slide-1.svg'),
           _Slide('assets/svg/slide-2.svg'),
