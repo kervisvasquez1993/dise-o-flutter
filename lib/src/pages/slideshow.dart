@@ -47,6 +47,7 @@ class _Dot extends StatelessWidget {
   _Dot(this.index);
   @override
   Widget build(BuildContext context) {
+    final pageViewIndex = Provider.of<SliderModel>(context).currentPage;
     return Container(
       width: 12,
       height: 12,
@@ -54,7 +55,7 @@ class _Dot extends StatelessWidget {
         horizontal: 5,
       ),
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: (pageViewIndex == index) ? Colors.blue : Colors.grey,
         shape: BoxShape.circle,
       ),
     );
