@@ -16,7 +16,7 @@ class Slideshow extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Expanded(child: _Slider(this.slides)),
-            _Dots(),
+            _Dots(this.slides.length),
           ],
         ),
       ),
@@ -25,6 +25,8 @@ class Slideshow extends StatelessWidget {
 }
 
 class _Dots extends StatelessWidget {
+  final int totalSlider;
+  _Dots(this.totalSlider);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,11 +34,12 @@ class _Dots extends StatelessWidget {
       height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          _Dot(0),
-          _Dot(1),
-          _Dot(2),
-        ],
+        children: List.generate(this.totalSlider, (index) => _Dot(index)),
+        // children: <Widget>[
+        //   _Dot(0),
+        //   _Dot(1),
+        //   _Dot(2),
+        // ],
       ),
     );
   }
@@ -81,10 +84,6 @@ class __SliderState extends State<_Slider> {
   void initState() {
     super.initState();
     pageViewController.addListener(() {
-      // print('Pagina actual ${pageViewController.page}');
-
-      // actualizar la instancia del model
-
       Provider.of<SliderModel>(context, listen: false).currentPage =
           pageViewController.page;
     });
@@ -102,11 +101,6 @@ class __SliderState extends State<_Slider> {
     return Container(
       child: PageView(
         controller: pageViewController,
-        // children: <Widget>[
-        //   _Slide('assets/svg/slide-1.svg'),
-        //   _Slide('assets/svg/slide-2.svg'),
-        //   _Slide('assets/svg/slide-3.svg'),
-        // ],
         children: widget.slides.map((slide) => _Slide(slide)).toList(),
       ),
     );
