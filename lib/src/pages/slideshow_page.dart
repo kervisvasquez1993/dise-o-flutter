@@ -6,11 +6,17 @@ class SlidershowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Slideshow(slides: <Widget>[
-      SvgPicture.asset('assets/svg/slide-1.svg'),
-      SvgPicture.asset('assets/svg/slide-2.svg'),
-      SvgPicture.asset('assets/svg/slide-3.svg'),
-      SvgPicture.asset('assets/svg/slide-4.svg'),
-    ]));
+      body: Slideshow(
+        puntosArribas: false,
+        slides: <Widget>[
+          SvgPicture.asset('assets/svg/slide-1.svg'),
+          SvgPicture.asset('assets/svg/slide-2.svg'),
+          SvgPicture.asset('assets/svg/slide-3.svg'),
+          SvgPicture.asset('assets/svg/slide-4.svg'),
+        ],
+        colorPrimario: Colors.red,
+        colorSecundario: Colors.blue,
+      ),
+    );
   }
 }
