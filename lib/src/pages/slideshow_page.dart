@@ -15,7 +15,7 @@ class SlidershowPage extends StatelessWidget {
           SvgPicture.asset('assets/svg/slide-4.svg'),
         ],
         colorPrimario: Colors.red,
-        colorSecundario: Colors.blue,
+        colorSecundario: Colors.purple,
       ),
     );
   }
