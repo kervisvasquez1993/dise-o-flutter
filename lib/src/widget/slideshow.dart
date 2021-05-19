@@ -9,11 +9,16 @@ class Slideshow extends StatelessWidget {
   final bool puntosArribas;
   final Color colorPrimario;
   final Color colorSecundario;
-  Slideshow(
-      {@required this.slides,
-      this.puntosArribas = false,
-      this.colorPrimario = Colors.blue,
-      this.colorSecundario = Colors.grey});
+  final int bullerPrimario;
+  final int bullerSecundario;
+  Slideshow({
+    @required this.slides,
+    this.puntosArribas = false,
+    this.colorPrimario = Colors.blue,
+    this.colorSecundario = Colors.grey,
+    this.bullerPrimario = 12,
+    this.bullerSecundario = 12,
+  });
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -26,7 +31,10 @@ class Slideshow extends StatelessWidget {
                   this.colorPrimario;
               Provider.of<_SliderShowModel>(context).colorSecundario =
                   this.colorSecundario;
-
+              Provider.of<_SliderShowModel>(context)._bullerPrincipal =
+                  this.bullerPrimario;
+              Provider.of<_SliderShowModel>(context)._bullerSecundario =
+                  this.bullerSecundario;
               return _CrearEstructuraSlideshow(
                   puntosArribas: puntosArribas, slides: slides);
             },
@@ -100,11 +108,15 @@ class _Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ssModel = Provider.of<_SliderShowModel>(context);
+    final posicion = (ssModel.currentPage == index)
+        ? ssModel._bullerPrincipal
+        : ssModel._bullerSecundario;
+    final double posicionFinal = posicion / 1.0;
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
-      width: 12,
-      height: 12,
+      width: posicionFinal,
+      height: posicionFinal,
       margin: EdgeInsets.symmetric(
         horizontal: 5,
       ),
@@ -176,6 +188,8 @@ class _SliderShowModel with ChangeNotifier {
   double _currentPage = 0;
   Color _colorPrimario = Colors.blue;
   Color _colorSecundario = Colors.grey;
+  int _bullerPrincipal = 12;
+  int _bullerSecundario = 12;
   double get currentPage => this._currentPage;
 // getter para obtener valor
   set currentPage(double currentPage) {
@@ -194,5 +208,17 @@ class _SliderShowModel with ChangeNotifier {
   set colorSecundario(Color color) {
     this._colorSecundario = color;
     notifyListeners();
+  }
+
+  int get bullerPrincipal => this._bullerPrincipal;
+
+  set bullerPrincipal(int buller) {
+    this._bullerPrincipal = buller;
+  }
+
+  int get bullerSecundario => this._bullerSecundario;
+
+  set bullerSecundario(int buller) {
+    this._bullerSecundario = buller;
   }
 }

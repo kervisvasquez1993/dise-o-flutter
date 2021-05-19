@@ -7,6 +7,8 @@ class SlidershowPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Slideshow(
+        bullerPrimario: 15,
+        bullerSecundario: 12,
         puntosArribas: false,
         slides: <Widget>[
           SvgPicture.asset('assets/svg/slide-1.svg'),
