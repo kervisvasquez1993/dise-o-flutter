@@ -5,6 +5,18 @@ import 'package:flutter_svg/svg.dart';
 class SlidershowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Expanded(child: MySlideShow()),
+        Expanded(child: MySlideShow()),
+      ],
+    );
+  }
+}
+
+class MySlideShow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Slideshow(
         bullerPrimario: 15,

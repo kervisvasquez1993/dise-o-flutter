@@ -201,13 +201,11 @@ class _SliderShowModel with ChangeNotifier {
 
   set colorPrimario(Color color) {
     this._colorPrimario = color;
-    notifyListeners();
   }
 
   Color get colorsecundario => _colorSecundario;
   set colorSecundario(Color color) {
     this._colorSecundario = color;
-    notifyListeners();
   }
 
   int get bullerPrincipal => this._bullerPrincipal;
