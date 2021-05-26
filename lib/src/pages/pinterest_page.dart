@@ -1,3 +1,4 @@
+import 'package:appredvital/src/widget/pinteres_menus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -6,7 +7,8 @@ class PinterestPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: _PinteresGrip(),
+        // child: _PinteresGrip(),
+        child: PinteresMenu(),
       ),
     );
   }
